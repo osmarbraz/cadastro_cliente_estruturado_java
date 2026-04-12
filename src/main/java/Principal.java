@@ -1,5 +1,5 @@
+
 import javax.swing.JOptionPane;
-import java.util.Scanner;
 
 /**
  * Programa principal do cadastro de cliete..
@@ -20,7 +20,7 @@ public class Principal {
     public static void main(String[] args) {
 
         // variável que guarda a escolha do usuário
-        int opcao; 
+        int opcao;
 
         // Loop principal do sistema (menu)
         do {
@@ -68,31 +68,28 @@ public class Principal {
         // Verifica se ainda há espaço no vetor
         if (total >= ids.length) {
             System.out.println("Cadastro cheio!");
-            return; // sai do método
+        } else {
+            // Solicita o ID do cliente       
+            int id = Integer.parseInt(JOptionPane.showInputDialog("Informe o Id: "));
+
+            // Verifica se o ID já existe
+            if (buscarIndicePorId(id) != -1) {
+                System.out.println("Id já cadastrado!");
+            } else {
+
+                // Armazena o ID na final do vetor,
+                ids[total] = id;
+                // Solicita o nome        
+                nomes[total] = JOptionPane.showInputDialog("Informe o nome: ");
+                // Solicita o CPF
+                cpfs[total] = JOptionPane.showInputDialog("Informe o CPF: ");
+
+                // Incrementa o total de clientes
+                total = total + 1;
+
+                System.out.println("Cliente cadastrado com sucesso!");
+            }
         }
-
-        // Solicita o ID do cliente       
-        int id = Integer.parseInt(JOptionPane.showInputDialog("Informe o Id: "));
-       
-        // Verifica se o ID já existe
-        if (buscarIndicePorId(id) != -1) {
-            System.out.println("Id já cadastrado!");
-            return;
-        }
-
-        // Armazena o ID na final do vetor,
-        ids[total] = id;
-
-        // Solicita o nome        
-        nomes[total] = JOptionPane.showInputDialog("Informe o nome: ");
-
-        // Solicita o CPF
-        cpfs[total] = JOptionPane.showInputDialog("Informe o CPF: ");
-
-        // Incrementa o total de clientes
-        total = total + 1;
-
-        System.out.println("Cliente cadastrado com sucesso!");
     }
 
     /**
@@ -109,20 +106,20 @@ public class Principal {
         // Se não encontrou
         if (indice == -1) {
             System.out.println("Cliente não encontrado!");
-            return;
+        } else {
+
+            // Desloca os elementos para "fechar o buraco"
+            for (int i = indice; i < total - 1; i++) {
+                ids[i] = ids[i + 1];
+                nomes[i] = nomes[i + 1];
+                cpfs[i] = cpfs[i + 1];
+            }
+
+            // Diminui o total de clientes
+            total = total - 1;
+
+            System.out.println("Cliente excluído com sucesso!");
         }
-
-        // Desloca os elementos para "fechar o buraco"
-        for (int i = indice; i < total - 1; i++) {
-            ids[i] = ids[i + 1];
-            nomes[i] = nomes[i + 1];
-            cpfs[i] = cpfs[i + 1];
-        }
-
-        // Diminui o total de clientes
-        total--;
-
-        System.out.println("Cliente excluído com sucesso!");
     }
 
     /**
@@ -130,26 +127,23 @@ public class Principal {
      */
     static void alterar() {
 
-        Scanner sc = new Scanner(System.in);
-
         // Solicita o ID
         int id = Integer.parseInt(JOptionPane.showInputDialog("Informe o Id: "));
 
         // Busca o cliente
         int indice = buscarIndicePorId(id);
 
+        // Se não encontrou
         if (indice == -1) {
             System.out.println("Cliente não encontrado!");
-            return;
+        } else {
+            // Atualiza nome        
+            nomes[indice] = JOptionPane.showInputDialog("Novo nome: ");
+            // Atualiza CPF        
+            cpfs[indice] = JOptionPane.showInputDialog("Novo CPF: ");
+
+            System.out.println("Cliente alterado com sucesso!");
         }
-
-        // Atualiza nome        
-        nomes[indice] = JOptionPane.showInputDialog("Novo nome: ");
-        
-        // Atualiza CPF        
-        cpfs[indice] = JOptionPane.showInputDialog("Novo CPF: ");
-
-        System.out.println("Cliente alterado com sucesso!");
     }
 
     /**
@@ -157,7 +151,7 @@ public class Principal {
      */
     static void consultar() {
         // variável que guarda a escolha do usuário
-        int opcao; 
+        int opcao;
 
         // Loop da consulta de cliente (submenu)
         do {
@@ -176,18 +170,19 @@ public class Principal {
                     //Procura a posição do cliente nos vetores
                     int indice = buscarIndicePorId(id);
 
+                    // Se não encontrou
                     if (indice == -1) {
                         System.out.println("Cliente não encontrado!");
-                        return;
+                    } else {
+
+                        // Exibe dados
+                        System.out.println("\nId: " + ids[indice]);
+                        System.out.println("Nome: " + nomes[indice]);
+                        System.out.println("CPF: " + cpfs[indice]);
                     }
 
-                    // Exibe dados
-                    System.out.println("\nId: " + ids[indice]);
-                    System.out.println("Nome: " + nomes[indice]);
-                    System.out.println("CPF: " + cpfs[indice]);
-
                     break;
-                case 2:       // Busca por Nome
+                case 2: // Busca por Nome
                     String nomeBusca = JOptionPane.showInputDialog("Informe o nome: ");
 
                     boolean encontrou = false;
@@ -217,29 +212,27 @@ public class Principal {
                     System.out.println("Opção inválida");
                     break;
             }
-        } while (opcao != 9); //Fim do dowhile
+        } while (opcao != 9); //Fim do do while
     }
 
     /**
      * Lista os dados do clientes
      */
-
     static void listar() {
 
         // Verifica se há clientes
         if (total == 0) {
             System.out.println("Nenhum cliente cadastrado.");
-            return;
-        }
+        } else {
+            System.out.println("\n=== CLIENTES CADASTRADOS ===");
 
-        System.out.println("\n=== CLIENTES CADASTRADOS ===");
+            // Percorre todos os clientes
+            for (int i = 0; i < total; i++) {
 
-        // Percorre todos os clientes
-        for (int i = 0; i < total; i++) {
-
-            System.out.println("Id: " + ids[i]
-                    + " | Nome: " + nomes[i]
-                    + " | CPF: " + cpfs[i]);
+                System.out.println("Id: " + ids[i]
+                        + " | Nome: " + nomes[i]
+                        + " | CPF: " + cpfs[i]);
+            }
         }
     }
 

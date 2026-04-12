@@ -1,4 +1,4 @@
-# Implementação de um cadastro de cliente de forma estruturada em Java
+# Implementação de um cadastro de clientes de forma estruturada em Java
 
 Este projeto apresenta a implementação de um **cadastro de clientes em Java**, desenvolvido utilizando o paradigma de **programação estruturada**.
 
