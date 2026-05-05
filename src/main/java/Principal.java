@@ -16,51 +16,7 @@ public class Principal {
 
     // Variável que controla quantos clientes estão cadastrados
     static int total = 0;
-
-    public static void main(String[] args) {
-
-        // variável que guarda a escolha do usuário
-        int opcao;
-
-        // Loop principal do sistema (menu)
-        do {
-            // Mostra o menu e lê a opção escolhida
-            opcao = Integer.parseInt(JOptionPane.showInputDialog("\n=== CADASTRO DE CLIENTES ==="
-                    + "\n1 - Incluir cliente"
-                    + "\n2 - Excluir cliente"
-                    + "\n3 - Alterar cliente"
-                    + "\n4 - Consultar cliente"
-                    + "\n5 - Listar todos"
-                    + "\n9 - Sair"
-                    + "\n Escolha: "));
-
-            // Estrutura que decide qual método executar
-            switch (opcao) {
-                case 1:
-                    incluir(); // chama método incluir
-                    break;
-                case 2:
-                    excluir(); // chama método excluir
-                    break;
-                case 3:
-                    alterar(); // chama método alterar
-                    break;
-                case 4:
-                    consultar(); // chama método consultar
-                    break;
-                case 5:
-                    listar(); // chama método listar
-                    break;
-                case 9:
-                    System.out.println("Saindo do sistema");
-                    break;
-                default:
-                    System.out.println("Opção inválida!");
-                    break;
-            }
-        } while (opcao != 9); // repete até o usuário escolher sair
-    }
-
+    
     /**
      * Inclui um novo cliente no final dos vetores.
      */
@@ -253,5 +209,54 @@ public class Principal {
         }
 
         return -1; // não encontrou
+    }
+    
+    /**
+     * Programa principal.
+     * 
+     * @param args 
+     */
+    public static void main(String[] args) {
+
+        // variável que guarda a escolha do usuário
+        int opcao;
+
+        // Loop principal do sistema (menu)
+        do {
+            // Mostra o menu e lê a opção escolhida
+            opcao = Integer.parseInt(JOptionPane.showInputDialog("\n=== CADASTRO DE CLIENTES ==="
+                    + "\n1 - Incluir cliente"
+                    + "\n2 - Excluir cliente"
+                    + "\n3 - Alterar cliente"
+                    + "\n4 - Consultar cliente"
+                    + "\n5 - Listar todos"
+                    + "\n9 - Sair"
+                    + "\n Escolha: "));
+
+            // Estrutura que decide qual método executar
+            switch (opcao) {
+                case 1:
+                    incluir(); // chama método incluir
+                    break;
+                case 2:
+                    excluir(); // chama método excluir
+                    break;
+                case 3:
+                    alterar(); // chama método alterar
+                    break;
+                case 4:
+                    consultar(); // chama método consultar
+                    break;
+                case 5:
+                    listar(); // chama método listar
+                    break;
+                case 9:
+                    System.out.println("Saindo do sistema");
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+                    break;
+            }
+        } while (opcao != 9); // repete até o usuário escolher sair
     }
 }
